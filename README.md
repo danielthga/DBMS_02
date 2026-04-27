@@ -65,7 +65,8 @@ git --version
 > **Screenshot 1:** Take a screenshot of your terminal showing all three
 > successful version checks and insert it here.
 >
-> `[insert screenshot]`
+> <img width="644" height="467" alt="grafik" src="https://github.com/user-attachments/assets/47e76ee8-750b-4afe-b027-a164cd4155ae" />
+
 
 ---
 
@@ -216,20 +217,20 @@ git commit -m "feat: complete ER schema for library management"
 ellipses). PlantUML uses Crow's Foot notation. Describe one concrete difference
 in how an N:M relationship is represented in each notation.
 
-> *Your answer:*
+> In Chen notation we would use a diamond for our relation, in crows foot it is line between this two objects and on the end you will have something looking like branches/crows foot indicating the cardinality.
 
 **Question 2.2:** What would happen if you wrote `@startuml Library` instead of
 `@startuml` at the top of `schema.puml`? Try it locally (`plantuml -tsvg schema.puml`)
 and observe the output filename. Why would this break the workflow?
 
-> *Your answer:*
+> This will create a file called Library.svg instead of schema.svg. The workflow will break because it can not find the schema.svg.
 
 **Question 2.3:** The `Author`–`Book` relationship is N:M. Does your PlantUML
 diagram require you to model the intermediate join table explicitly, or does
 PlantUML abstract it away? At which stage of the design process would the join
 table appear?
 
-> *Your answer:*
+> PlantUML abstracts it away. I just write A }|--|{ B : "writes" and it draws a direct line. The join table (e.g. writes(AuthorID, ISBN)) only appears later at the logical/physical design stage when converting the conceptual model into actual database tables.
 
 ---
 
@@ -296,7 +297,8 @@ Open `schema.svg` in a browser or SVG viewer.
 > **Screenshot 2:** Take a screenshot of `schema.svg` open in your browser,
 > showing all five entities and all four relationships, and insert it here.
 >
-> `[insert screenshot]`
+> <img width="473" height="681" alt="grafik" src="https://github.com/user-attachments/assets/84ff329f-5d29-497b-8c69-fc022d707b66" />
+
 
 Once the diagram looks correct, tell Git to ignore the generated artifact.
 The workflow will recreate it on every release:
@@ -324,13 +326,13 @@ git commit -m "chore: ignore generated SVG artifact"
 Name one shell command you could use to check the exit code of the last command
 and verify that the render succeeded, without opening the SVG file.
 
-> *Your answer:*
+> echo $?. "$?" stores the return value of the last command.it will print 0 if the last command succeeded, or a non-zero number if it failed.
 
 **Question 3.2:** Delete `schema.svg` and run `plantuml -tsvg schema.puml` again.
 Then run `git status`. Is `schema.svg` shown as an untracked file? Explain why
 or why not.
 
-> *Your answer:*
+> It is not shown as an untracked file, because schema.svg is listed in .gitignore.
 
 ---
 
@@ -398,7 +400,8 @@ git tag
 > **Screenshot 3:** Take a screenshot of `git log --oneline -5` showing your
 > commits in order, and insert it here.
 >
-> `[insert screenshot]`
+> <img width="680" height="131" alt="grafik" src="https://github.com/user-attachments/assets/b511df07-54e1-483c-ad53-4f70cfad5494" />
+
 
 > **Caveat:** Tags are not pushed automatically with `git push origin main`.
 > You must push them explicitly. Forgetting this step means the workflow never
@@ -409,12 +412,12 @@ git tag
 **Question 4.1:** Run `git push origin main`. Then open the **Actions** tab in
 your fork on GitHub. Did any workflow run trigger? Explain why or why not.
 
-> *Your answer:*
+> No workflow triggered. The workflow is configured with on: push: tags: ['v*'], so it only fires when a tag starting with v is pushed and not on a regular branch push.
 
 **Question 4.2:** Run `git tag -v v1.0.0`. What information is shown that
 `git tag` alone does not display? What does the `-v` flag verify?
 
-> *Your answer:*
+> It shows the tagger's name, email, date, and the tag message, none of which appear with plain git tag. The -v flag also verifies the GPG signature of the tag, confirming it was created by a trusted author.
 
 ---
 
